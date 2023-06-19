@@ -48,6 +48,50 @@ def init_app(app):
     app.cli.add_command(init_db_command)
 
 
+def update_post_likes(post_id: str, like: bool):
+    """
+    Add or remove a like to a post.
+
+    Args:
+    - `post_id` - The id of the post to add a like to.
+    - `param like`- If `True`, add a like, otherwise remove a like.
+    """
+    db = get_db()
+    if like:
+        db.execute(
+            'UPDATE posts SET likes = likes + 1 WHERE id = ?',
+            (post_id,)
+        )
+    else:
+        db.execute(
+            'UPDATE posts SET likes = likes - 1 WHERE id = ?',
+            (post_id,)
+        )
+    db.commit()
+
+
+def update_post_dislikes(post_id: str, dislike: bool):
+    """
+    Add or remove a dislike to a post.
+
+    Args:
+    - `post_id` - The id of the post to add a dislike to.
+    - `param dislike`- If `True`, add a dislike, otherwise remove a dislike.
+    """
+    db = get_db()
+    if dislike:
+        db.execute(
+            'UPDATE posts SET dislikes = dislikes + 1 WHERE id = ?',
+            (post_id,)
+        )
+    else:
+        db.execute(
+            'UPDATE posts SET dislikes = dislikes - 1 WHERE id = ?',
+            (post_id,)
+        )
+    db.commit()
+
+
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
