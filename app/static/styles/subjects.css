@@ -1,0 +1,54 @@
+.topic-container {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    width: 50%;
+    background-color: #85a7c2;
+  }
+  
+  .topic-container h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .topic-container p {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .vote-buttons button {
+    align-items: center;
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .vote-buttons button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .vote-buttons button:active {
+    background-color: #ebebeb;
+  }
+  
+  .upvote-button {
+    color: green;
+    font-size: 20px;
+  }
+  
+  .downvote-button {
+    font-size: 20px;
+    color: red;
+  }
+  
+
+  .vote-buttons button .vote-count {
+    margin-left: 5px;
+    font-size: 14px;
+  }
+  

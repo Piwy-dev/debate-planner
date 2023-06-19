@@ -4,6 +4,7 @@
     <title>Debate Planner
     </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbars.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/subjects.css') }}">
     <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
 
@@ -31,6 +32,18 @@
     </div>
 
     <div class="content">
+        <div class="topic-container">
+            <h3>Nom du sujet</h3>
+            <p>Description du sujet...</p>
+            <div class="vote-buttons">
+                <button class="upvote-button">
+                ⬆︎<span class="vote-count">10</span>
+                </button>
+                <button class="downvote-button">
+                ⬇︎ <span class="vote-count">5</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <div class="bottom">
