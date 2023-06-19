@@ -1,0 +1,175 @@
+/* This file contains evrything that is needed for the top and bottom nav bars. */
+
+.bottom {
+    background-color: #dddddd;
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.bottom.dark {
+    background-color: rgb(37, 37, 37);
+}
+
+.bottom-component {
+    font-size: 15px;
+    float: left;
+    margin-left: 15px;
+    line-height: 40px;
+    color: #464646;
+}
+
+.bottom-component.dark {
+    color: #fff;
+}
+
+.copyright {
+    float: right;
+    margin-right: 15px;
+    line-height: 12.5px;
+}
+
+#dark-mode-switcher {
+    align-items: center;
+    margin: 15px;
+    position: relative;
+    height: 20px;
+    width: 45px;
+    float: right;
+}
+
+#dark-mode-switcher input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+#dark-mode-switcher .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: .4s;
+}
+
+#dark-mode-switcher .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+#dark-mode-switcher input:checked+.slider {
+    background-color: #546677;
+}
+
+#dark-mode-switcher input:checked+.slider:before {
+    transform: translateX(24px);
+    background-color: #232e42;
+}
+
+#dark-mode-switcher.dark .slider {
+    background-color: #f2f2f2;
+}
+
+#dark-mode-switcher.dark input:checked+.slider {
+    background-color: #555;
+}
+
+#dark-mode-switcher.dark input:checked+.slider:before {
+    background-color: #f2f2f2;
+    transform: translateX(34px);
+}
+
+#languageSwitcher {
+    background-color: #dddddd;
+    color: #464646;
+    margin: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    height: 34px;
+    line-height: 1.6;
+    float: right;
+}
+
+#languageSwitcher.dark {
+    background-color: rgb(37, 37, 37);
+    color: #fff;
+}
+
+#languageSwitcher option {
+    color: #fff;
+    font-size: 16px;
+}
+
+.top {
+    background-color: #dddddd;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.top.dark {
+    background-color: rgb(37, 37, 37);
+}
+
+.top-buttons {
+    display: inline;
+    font-size: 17px;
+    line-height: 50px;
+    float: left;
+}
+
+.top-button {
+    color: #464646;
+    margin: 0 14px;
+    text-decoration: none;
+}
+
+.top-button.dark {
+    color: #fff;
+}
+
+.top-button:hover {
+    color: #a5c8e3;
+}
+
+.top-button-active {
+    color: #5ca4da;
+    margin: 0 14px;
+    text-decoration: none;
+}
+
+.top-title {
+    font-size: 20px;
+    line-height: 50px;
+    float: left;
+    margin: 0 25px 0 20px;
+    color: #464646;
+}
+
+.top-title.dark {
+    color: #fff;
+}
