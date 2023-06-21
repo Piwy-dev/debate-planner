@@ -31,7 +31,9 @@
     top: 50px;
     margin-bottom: 40px;
     padding: 0 15px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .copyright {
