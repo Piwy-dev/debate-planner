@@ -32,19 +32,26 @@
     </div>
 
     <div class="content">
-        <div class="topic-container">
-            <h3>Nom du sujet</h3>
-            <p>Description du sujet...</p>
-            <div class="vote-buttons">
-                <button class="upvote-button">
-                ⬆︎<span class="vote-count">10</span>
-                </button>
-                <button class="downvote-button">
-                ⬇︎ <span class="vote-count">5</span>
-                </button>
+        <div class="topic">
+            <div class="topic-container">
+                <div class="votes">
+                    <div class="upvote">
+                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="upvote">
+                    </div>
+                    <p>0</p>
+                    <div class="downvote">
+                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="downvote">
+                    </div>
+                </div>
+                
+                <div class="topic-details">
+                    <h3>Nom du sujet</h3>
+                    <p>Description du sujet...</p>
+                </div>
             </div>
         </div>
     </div>
+    
 
     <div class="bottom">
         <p class="bottom-component copyright">© 2023 Pierre-Yves Haubruge</p>

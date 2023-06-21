@@ -48,26 +48,38 @@ def init_app(app):
     app.cli.add_command(init_db_command)
 
 
-def update_post_likes(post_id: str, like: bool):
+def update_post_votes(post_id: str, up: bool, remove: bool):
     """
-    Add or remove a like to a post.
+    Change the votes of a post.
 
     Args:
     - `post_id` - The id of the post to add a like to.
-    - `param like`- If `True`, add a like, otherwise remove a like.
+    - `up`- `True` if the user is upvoting, otherwise `False`.
+    - `remove`- If `True`, remove a vote, otherwise add a vote.
     """
     db = get_db()
-    if like:
-        db.execute(
-            'UPDATE posts SET likes = likes + 1 WHERE id = ?',
-            (post_id,)
-        )
+    if remove:
+        if up:
+            db.execute(
+                'UPDATE posts SET votes = votes - 1 WHERE id = ?',
+                (post_id,)
+            )
+        else:
+            db.execute(
+                'UPDATE posts SET votes = votes + 1 WHERE id = ?',
+                (post_id,)
+            )
     else:
-        db.execute(
-            'UPDATE posts SET likes = likes - 1 WHERE id = ?',
-            (post_id,)
-        )
-    db.commit()
+        if up:
+            db.execute(
+                'UPDATE posts SET votes = votes + 1 WHERE id = ?',
+                (post_id,)
+            )
+        else:
+            db.execute(
+                'UPDATE posts SET votes = votes - 1 WHERE id = ?',
+                (post_id,)
+            )
 
 
 def update_post_dislikes(post_id: str, dislike: bool):
