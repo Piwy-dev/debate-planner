@@ -6,6 +6,7 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 import click
 import os
+from datetime import datetime
 
 
 def get_db():
@@ -46,6 +47,34 @@ def init_app(app):
     """
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+
+
+def get_topics():
+    """
+    Get all topics from the database.
+    """
+    db = get_db()
+    topics = db.execute(
+        'SELECT * FROM topics'
+    ).fetchall()
+    return topics
+
+
+def add_topic(title: str, content: str):
+    """
+    Add a topic to the database.
+
+    Args:
+    - `title` - The title of the topic.
+    - `content` - The content of the topic.
+    """
+    db = get_db()
+    id_user = 1 # TODO: Get the user id from the session.
+    db.execute(
+        'INSERT INTO topics (title, content, id_user) VALUES (?, ?, ?)',
+        (title, content, id_user)
+    )
+    db.commit()
 
 
 def update_post_votes(post_id: str, up: bool, remove: bool):

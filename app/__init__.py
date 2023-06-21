@@ -27,7 +27,18 @@ def create_app(test_config=None):
     
     @app.route("/<lang>/home")
     def home(lang):
-        return render_template('/{}/home.html'.format(lang))
+        topics = db.get_topics()
+        return render_template('/{}/home.html'.format(lang), topics=topics)
+    
+    @app.route("/<lang>/create-topic", methods=['GET', 'POST'])
+    def create_topic(lang):
+        if request.method == 'POST':
+            title = request.form['title']
+            content = request.form['content']
+            db.add_topic(title, content)
+            return redirect('/{}/home'.format(lang))
+        else:
+            return render_template('/{}/create-topic.html'.format(lang))
     
     db.init_app(app)
 
