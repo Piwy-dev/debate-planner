@@ -163,6 +163,9 @@ def check_username(username: str):
     Returns:
     - `True` if the username is already in use, otherwise `False`.
     """
+    if username == 'logged_in':
+        return True
+    
     db = get_db()
     user = db.execute(
         'SELECT id_user FROM users WHERE username = ?',

@@ -33,8 +33,14 @@
     </div>
 
     <div class="content">
-        <!-- Connection button -->
-        <a class="connection-button" href="/fr/connection">Se connecter</a>
+        {% if logged_in %}
+            <!-- Deconnection button -->
+            <a class="connection-button" id="deconnection" href="/fr/deconnection">Se déconnecter</a>
+        {% endif %}
+        {% if not logged_in %}
+            <!-- Connection button -->
+            <a class="connection-button" id="connection" href="/fr/connection">Se connecter</a>
+        {% endif %}
 
         <!-- Create new topic -->
         <a class="new-topic" href="/fr/create-topic">

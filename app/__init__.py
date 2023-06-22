@@ -28,7 +28,10 @@ def create_app(test_config=None):
     @app.route("/<lang>/home")
     def home(lang):
         topics = db.get_topics()
-        return render_template('/{}/home.html'.format(lang), topics=topics)
+        # If user is logged in
+        if 'logged_in' in session:
+            return render_template('/{}/home.html'.format(lang), topics=topics, logged_in=True, username=session['username'])
+        return render_template('/{}/home.html'.format(lang), topics=topics, logged_in=False)
     
     @app.route("/<lang>/create-topic", methods=['GET', 'POST'])
     def create_topic(lang):
@@ -37,8 +40,11 @@ def create_app(test_config=None):
             content = request.form['content']
             db.add_topic(title, content)
             return redirect('/{}/home'.format(lang))
-        else:
-            return render_template('/{}/create-topic.html'.format(lang))
+        # If user is logged in
+        if 'logged_in' in session:
+            return render_template('/{}/create-topic.html'.format(lang), logged_in=True, username=session['username'])
+        # If user is not logged in, redirect to connection page
+        return redirect('/{}/connection'.format(lang))
         
     @app.route("/<lang>/connection", methods=['GET', 'POST'])
     def connection(lang):
@@ -46,11 +52,12 @@ def create_app(test_config=None):
             username = request.form['username']
             password = request.form['password']
             if db.check_user(username, password):
+                session['logged_in'] = True
+                session['username'] = username
                 return redirect('/{}/home'.format(lang))
             else:
                 return render_template('/{}/connection.html'.format(lang), error="Mauvais identifiants")
-        else:
-            return render_template('/{}/connection.html'.format(lang))
+        return render_template('/{}/connection.html'.format(lang))
         
     @app.route("/<lang>/inscription", methods=['GET', 'POST'])
     def inscription(lang):
@@ -59,11 +66,18 @@ def create_app(test_config=None):
             password = request.form['password']
             if not db.check_username(username):
                 db.add_user(username, password)
+                # TODO: add session and connect user
                 return redirect('/{}/home'.format(lang))
             else:
                 return render_template('/{}/inscription.html'.format(lang), error="Nom d'utilisateur déjà utilisé")
         else:
             return render_template('/{}/inscription.html'.format(lang))
+        
+    @app.route("/<lang>/deconnection")
+    def deconnection(lang):
+        session.pop('logged_in', None)
+        session.pop('username', None)
+        return redirect('/{}/home'.format(lang))
     
     db.init_app(app)
 
