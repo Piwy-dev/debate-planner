@@ -1,10 +1,8 @@
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
     id_user     INTEGER PRIMARY KEY AUTOINCREMENT,
-    name        VARCHAR(50)     NOT NULL,
-    email       VARCHAR(50)     NOT NULL UNIQUE,
+    username        VARCHAR(50)     NOT NULL UNIQUE,
     password    VARCHAR(50)     NOT NULL,
-    created_at  DATETIME        NOT NULL,
-    updated_at  DATETIME        NOT NULL
+    created_at  DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS topics (

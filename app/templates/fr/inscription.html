@@ -34,7 +34,8 @@
 
     <div class="content">
         <h1>Inscription</h1>
-        <form class="connection-form" action="/fr/connection" method="POST">
+        <p class="error">{{ error }}</p>
+        <form class="connection-form" action="/fr/inscription" method="POST">
             <input type="text" name="username" placeholder="Nom d'utilisateur" required maxlength="30">
             <input type="password" name="password" placeholder="Mot de passe" required minlength="8" maxlength="50">
             <input type="submit" value="Se connecter">

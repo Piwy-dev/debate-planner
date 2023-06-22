@@ -81,7 +81,7 @@ def add_topic(title: str, content: str):
     db.commit()
 
 
-def update_post_votes(post_id: str, up: bool, remove: bool):
+def update_topic_votes(post_id: str, up: bool, remove: bool):
     """
     Change the votes of a post.
 
@@ -115,26 +115,63 @@ def update_post_votes(post_id: str, up: bool, remove: bool):
             )
 
 
-def update_post_dislikes(post_id: str, dislike: bool):
+def check_user(username: str, password: str):
     """
-    Add or remove a dislike to a post.
+    Check if the username and password are correct.
 
     Args:
-    - `post_id` - The id of the post to add a dislike to.
-    - `param dislike`- If `True`, add a dislike, otherwise remove a dislike.
+    - `username` - The username to check.
+    - `password` - The password to check.
+
+    Returns:
+    - `True` if the username and password are correct, otherwise `False`.
     """
     db = get_db()
-    if dislike:
-        db.execute(
-            'UPDATE posts SET dislikes = dislikes + 1 WHERE id = ?',
-            (post_id,)
-        )
+    user = db.execute(
+        'SELECT id_user FROM users WHERE username = ? AND password = ?',
+        (username, password)
+    ).fetchone()
+    if user is None:
+        return False
     else:
-        db.execute(
-            'UPDATE posts SET dislikes = dislikes - 1 WHERE id = ?',
-            (post_id,)
-        )
+        return True
+    
+
+def add_user(username: str, password: str):
+    """
+    Add a user to the database.
+
+    Args:
+    - `username` - The username of the user.
+    - `password` - The password of the user.
+    """
+    db = get_db()
+    db.execute(
+        'INSERT INTO users (username, password) VALUES (?, ?)',
+        (username, password)
+    )
     db.commit()
+
+
+def check_username(username: str):
+    """
+    Check if the username is already in use.
+
+    Args:
+    - `username` - The username to check.
+
+    Returns:
+    - `True` if the username is already in use, otherwise `False`.
+    """
+    db = get_db()
+    user = db.execute(
+        'SELECT id_user FROM users WHERE username = ?',
+        (username,)
+    ).fetchone()
+    if user is None:
+        return False
+    else:
+        return True
 
 
 @click.command('init-db')

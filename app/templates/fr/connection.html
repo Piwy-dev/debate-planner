@@ -34,6 +34,7 @@
 
     <div class="content">
         <h1>Connection</h1>
+        <p class="error">{{ error }}</p>
         <form class="connection-form" action="/fr/connection" method="POST">
             <input type="text" name="username" placeholder="Nom d'utilisateur" required maxlength="30">
             <input type="password" name="password" placeholder="Mot de passe" required minlength="8" maxlength="50">
@@ -41,7 +42,6 @@
         </form>
         <p class="connection-text">Pas encore de compte ? <a href="/fr/inscription">Inscrivez-vous</a></p>
     </div>
-    
 
     <div class="bottom">
         <p class="bottom-component copyright">© 2023 Pierre-Yves Haubruge</p>

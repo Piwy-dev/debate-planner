@@ -57,7 +57,7 @@ def create_app(test_config=None):
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
-            if db.check_username(username):
+            if not db.check_username(username):
                 db.add_user(username, password)
                 return redirect('/{}/home'.format(lang))
             else:
