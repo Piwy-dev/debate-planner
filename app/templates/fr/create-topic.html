@@ -4,7 +4,8 @@
     <title>Create topic
     </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbars.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/subjects.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/topics.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/general.css') }}">
     <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
 
@@ -33,9 +34,9 @@
 
     <div class="content">
         <h1>Nouveau sujet</h1>
-        <form action="/fr/create-topic" method="POST">
-            <input type="text" name="title" placeholder="Nom du sujet" required>
-            <textarea name="content" placeholder="Description du sujet..." required></textarea>
+        <form class="new-topic-form" action="/fr/create-topic" method="POST">
+            <input type="text" name="title" placeholder="Nom du sujet" required maxlength="50">
+            <textarea name="content" placeholder="Description du sujet..." required maxlength="5000"></textarea>
             <input type="submit" value="Créer">
         </form>
        

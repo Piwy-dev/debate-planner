@@ -26,16 +26,6 @@
     color: #fff;
 }
 
-.content {
-    position: relative;
-    top: 50px;
-    margin-bottom: 40px;
-    padding: 0 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .copyright {
     float: right;
     margin-right: 15px;
