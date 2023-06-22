@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" style="background-image: url(../static/images/waldo-4.png); background-size: cover;">
+<head>
+    <title>Inscription
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbars.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/users.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/general.css') }}">
+    <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
+</head>
+
+<body>
+    <div class="top">
+        <!-- Title -->
+        <p class="top-title">Debate Planner</p>
+
+        <!-- Navigation buttons -->
+        <div class="top-buttons">
+            <a href="/" class="top-button-active">Acceuil</a>
+        </div>
+
+        <!-- Language switcher -->
+        <select id="languageSwitcher">
+            <option value="fr"><span>&#x1F1EB;&#x1F1F7;</span> Français</option>
+            <option value="nl"><span>&#x1F1F3;&#x1F1F1;</span> Nederlands</option>
+        </select>
+
+        <!-- Dark mode switcher -->
+        <label id="dark-mode-switcher" class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="content">
+        <h1>Inscription</h1>
+        <form class="connection-form" action="/fr/connection" method="POST">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required maxlength="30">
+            <input type="password" name="password" placeholder="Mot de passe" required minlength="8" maxlength="50">
+            <input type="submit" value="Se connecter">
+        </form>
+    </div>
+    
+
+    <div class="bottom">
+        <p class="bottom-component copyright">© 2023 Pierre-Yves Haubruge</p>
+        <a class="bottom-component" href="/conditions-utilisation">Conditions d'utilisation</a>
+        <a class="bottom-component" href="/politique-de-confidentialité">Politique de confidentialité</a>
+    </div>
+
+</body>
+
+</html>
