@@ -51,12 +51,16 @@ def init_app(app):
 
 def get_topics():
     """
-    Get all topics from the database.
+    Get all topics from the database, and order them by number of votes and date (newest first).
     """
     db = get_db()
     topics = db.execute(
-        'SELECT * FROM topics'
+        'SELECT id_topic, title, content, created_at, updated_at, votes FROM topics'
+        #' FROM topics t JOIN users u ON t.id_user = u.id_user'
+        ' ORDER BY votes DESC, created_at DESC'
     ).fetchall()
+    # Convert the topics to a list of dictionaries.
+    topics = [dict(topic) for topic in topics]
     return topics
 
 

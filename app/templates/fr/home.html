@@ -37,42 +37,27 @@
             <img src="{{ url_for('static', filename='images/plus.png') }}" alt="plus">
             Nouveau sujet
         </a>
-        <div class="topic" id="1">
+        <!-- Topics -->
+        {% for topic in topics %}
+        <div class="topic" id="{{ topic.id_topic }}">
             <div class="topic-container">
                 <div class="votes">
-                    <div class="upvote" id="1">
+                    <div class="upvote" id="{{ topic.id_topic }}">
                         <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="upvote">
                     </div>
-                    <p>0</p>
-                    <div class="downvote" id="1">
+                    <p>{{ topic.votes }}</p>
+                    <div class="downvote" id="{{ topic.id_topic }}">
                         <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="downvote">
                     </div>
                 </div>
                 
                 <div class="topic-details">
-                    <h3>Nom du sujet</h3>
-                    <p>Description du sujet...</p>
+                    <h3>{{ topic.title }}</h3>
+                    <p>{{ topic.content }}</p>
                 </div>
             </div>
         </div>
-        <div class="topic" id="2">
-            <div class="topic-container">
-                <div class="votes">
-                    <div class="upvote" id="2">
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="upvote">
-                    </div>
-                    <p>0</p>
-                    <div class="downvote" id="2">
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="downvote">
-                    </div>
-                </div>
-                
-                <div class="topic-details">
-                    <h3>Un sujet</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum voluptates. Quisquam, voluptatum voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum voluptates. Quisquam, voluptatum voluptates. </p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     
 

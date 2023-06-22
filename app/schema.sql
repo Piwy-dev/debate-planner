@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 CREATE TABLE IF NOT EXISTS topics (
-    id_post     INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_topic     INTEGER PRIMARY KEY AUTOINCREMENT,
     title       VARCHAR(50)     NOT NULL,
     content     TEXT            NOT NULL,
     votes       INTEGER         NOT NULL DEFAULT 0,
