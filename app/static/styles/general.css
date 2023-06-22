@@ -6,6 +6,33 @@ h1 {
     text-align: center;
 }
 
+.connection-button {
+    margin: 0 10px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #badbf6;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    /* Place the text in the center horizontaly and verticaly */
+    text-align: center;
+    line-height: 30px;
+    /* Place the button in the right and on the same level as the new topic button */
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.connection-button:hover {
+    background-color: #dbefff;
+    color: #8cc9f4;
+}
+
 .content {
     position: relative;
     top: 50px;

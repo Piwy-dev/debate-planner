@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" style="background-image: url(../static/images/waldo-4.png); background-size: cover;">
 <head>
-    <title>Debate Planner
+    <title>Connection
     </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbars.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/topics.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/users.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/general.css') }}">
     <script type="module" src="{{ url_for('static', filename='js/index.js') }}"></script>
 </head>
@@ -33,35 +33,13 @@
     </div>
 
     <div class="content">
-        <!-- Connection button -->
-        <a class="connection-button" href="/fr/connection">Se connecter</a>
-
-        <!-- Create new topic -->
-        <a class="new-topic" href="/fr/create-topic">
-            <img src="{{ url_for('static', filename='images/plus.png') }}" alt="plus">
-            Nouveau sujet
-        </a>
-        <!-- Topics -->
-        {% for topic in topics %}
-        <div class="topic" id="{{ topic.id_topic }}">
-            <div class="topic-container">
-                <div class="votes">
-                    <div class="upvote" id="{{ topic.id_topic }}">
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="upvote">
-                    </div>
-                    <p>{{ topic.votes }}</p>
-                    <div class="downvote" id="{{ topic.id_topic }}">
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="downvote">
-                    </div>
-                </div>
-                
-                <div class="topic-details">
-                    <h3>{{ topic.title }}</h3>
-                    <p>{{ topic.content }}</p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+        <h1>Connection</h1>
+        <form class="connection-form" action="/fr/connection" method="POST">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required maxlength="30">
+            <input type="password" name="password" placeholder="Mot de passe" required minlength="8" maxlength="50">
+            <input type="submit" value="Se connecter">
+        </form>
+        <p class="connection-text">Pas encore de compte ? <a href="/fr/inscription">Inscrivez-vous</a></p>
     </div>
     
 

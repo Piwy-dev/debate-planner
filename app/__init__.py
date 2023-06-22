@@ -39,6 +39,31 @@ def create_app(test_config=None):
             return redirect('/{}/home'.format(lang))
         else:
             return render_template('/{}/create-topic.html'.format(lang))
+        
+    @app.route("/<lang>/connection", methods=['GET', 'POST'])
+    def connection(lang):
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            if db.check_user(username, password):
+                return redirect('/{}/home'.format(lang))
+            else:
+                return render_template('/{}/connection.html'.format(lang), error="Mauvais identifiants")
+        else:
+            return render_template('/{}/connection.html'.format(lang))
+        
+    @app.route("/<lang>/inscription", methods=['GET', 'POST'])
+    def inscription(lang):
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            if db.check_username(username):
+                db.add_user(username, password)
+                return redirect('/{}/home'.format(lang))
+            else:
+                return render_template('/{}/inscription.html'.format(lang), error="Nom d'utilisateur déjà utilisé")
+        else:
+            return render_template('/{}/inscription.html'.format(lang))
     
     db.init_app(app)
 
