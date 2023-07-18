@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" style="background-image: url(../static/images/waldo-4.png); background-size: cover;">
+<html lang="fr">
 <head>
-    <title>Acceuil
-    </title>
+    <title>Acceuil</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/navbars.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/topics.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/general.css') }}">
@@ -53,11 +52,11 @@
             <div class="topic-container">
                 <div class="votes">
                     <div class="upvote" id="{{ topic.id_topic }}">
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="upvote">
+                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="upvote" id="{{ topic.id_topic }}" alt="upvote">
                     </div>
                     <p>{{ topic.votes }}</p>
                     <div class="downvote" id="{{ topic.id_topic }}">
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" alt="downvote">
+                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="downvote" id="{{ topic.id_topic }}" alt="downvote">
                     </div>
                 </div>
                 

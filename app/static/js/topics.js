@@ -1,33 +1,21 @@
 /**
- * @function vote - Sends a POST request to the server to vote on a topic
+ * @function vote - Sends a POST request to the server to vote on a topic and updates the vote count
  * @param {Event} event - The event that triggered the function
- * @returns {Promise} - The response from the server
+ * @returns {Promise} - A promise that resolves to the response from the server
+ * @throws {Error} - If the response from the server is not ok
  */
-function vote(event) {
-    // Prevent the default action
-    event.preventDefault();
-
-    // Get the topic ID
-    const topicId = event.target.dataset.topicId;
-
-    // Get the vote type
-    const voteType = event.target.dataset.voteType;
-
-    // Send a POST request to the server
-    return fetch(`/topics/${topicId}/vote`, {
+async function vote(event) {
+    const topicId = event.target.id
+    const voteType = event.target.classList.contains('upvote') ? 'upvote' : 'downvote';
+    const response = await fetch(`/topics/${topicId}/vote/${voteType}`, {
         method: 'POST',
-        body: JSON.stringify({
-            voteType: voteType
-        })
-    })
-    .then(response => response.json())
-    .then(result => {
-        // Update the vote count
-        const voteCount = document.querySelector(`#vote-count-${topicId}`);
-        voteCount.innerHTML = result.voteCount;
-    }
-    );
+        form: {
+            topic_id: topicId,
+            vote_type: voteType
+        }
+    });
 }
+
 
 /**
  * @function manageVotes - Manages the vote buttons
@@ -38,13 +26,11 @@ export function manageVotes() {
     
     // Add event listeners to the upvote buttons
     upvotes.forEach(upvote => {
-        upvote.addEventListener('click', vote.bind(this)
-        );
+        upvote.addEventListener('click', vote.bind(this));
     });
 
     // Add event listeners to the downvote buttons
     downvotes.forEach(downvote => {
-        downvote.addEventListener('click', vote.bind(this)
-        );
+        downvote.addEventListener('click', vote.bind(this));
     });
 }

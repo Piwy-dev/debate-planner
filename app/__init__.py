@@ -47,6 +47,22 @@ def create_app(test_config=None):
                 return render_template('/{}/create-topic.html'.format(lang), logged_in=True, username=session['username'])
             # If user is not logged in, redirect to connection page
             return redirect('/{}/connection'.format(lang))
+
+       
+    @app.route("/topics/<int:topic_id>/vote/<vote_type>", methods=['POST'])
+    def vote_topic(topic_id, vote_type):
+        print(request)
+        print(request.form)
+        if request.method == 'POST':
+            if 'logged_in' not in session:
+                return redirect('/{}/connection'.format(lang))
+            print(topic_id, vote_type)
+            if vote_type == 'upvote':
+                db.update_topic_votes(topic_id, True, False)
+            elif vote_type == 'downvote':
+                db.update_topic_votes(topic_id, False, True)
+        return redirect('/{}/home'.format(lang))
+    
         
     @app.route("/<lang>/connection", methods=['GET', 'POST'])
     def connection(lang):

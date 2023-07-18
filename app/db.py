@@ -5,7 +5,6 @@ import sqlite3
 from flask import current_app, g
 from flask.cli import with_appcontext
 import click
-import os
 from datetime import datetime
 
 
@@ -59,7 +58,6 @@ def get_topics():
     ).fetchall()
     # Convert to list of dicts
     topics = [dict(topic) for topic in topics]
-    print(topics)
     return topics
 
 
