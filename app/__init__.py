@@ -38,13 +38,15 @@ def create_app(test_config=None):
         if request.method == 'POST':
             title = request.form['title']
             content = request.form['content']
-            db.add_topic(title, content)
+            db.add_topic(title, content, session['username'])
             return redirect('/{}/home'.format(lang))
-        # If user is logged in
-        if 'logged_in' in session:
-            return render_template('/{}/create-topic.html'.format(lang), logged_in=True, username=session['username'])
-        # If user is not logged in, redirect to connection page
-        return redirect('/{}/connection'.format(lang))
+
+        else:
+            # If user is logged in
+            if 'logged_in' in session:
+                return render_template('/{}/create-topic.html'.format(lang), logged_in=True, username=session['username'])
+            # If user is not logged in, redirect to connection page
+            return redirect('/{}/connection'.format(lang))
         
     @app.route("/<lang>/connection", methods=['GET', 'POST'])
     def connection(lang):

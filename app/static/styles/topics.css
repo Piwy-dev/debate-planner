@@ -73,7 +73,7 @@
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 15px;
-  width: 50%;
+  width: 60%;
   background-color: #85a7c2;
 }
 
@@ -88,12 +88,25 @@
 
 .topic-container h3 {
   font-size: 18px;
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 
-.topic-container p {
-  font-size: 14px;
+.topic-content {
   margin: 0;
+  font-size: 16px;
+}
+
+.topic-title {
+  margin: 0;
+  font-size: 20px;
+  color: #3f5394;
+  text-align: center;
+}
+
+.username {
+  font-size: 18px;
+  margin: 0;
+  color: #3f5394;
 }
 
 .vote-buttons {

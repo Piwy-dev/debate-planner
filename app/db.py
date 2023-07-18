@@ -55,28 +55,27 @@ def get_topics():
     """
     db = get_db()
     topics = db.execute(
-        'SELECT id_topic, title, content, created_at, updated_at, votes FROM topics'
-        #' FROM topics t JOIN users u ON t.id_user = u.id_user'
-        ' ORDER BY votes DESC, created_at DESC'
+        'SELECT * FROM topics ORDER BY votes DESC, created_at DESC'
     ).fetchall()
-    # Convert the topics to a list of dictionaries.
+    # Convert to list of dicts
     topics = [dict(topic) for topic in topics]
+    print(topics)
     return topics
 
 
-def add_topic(title: str, content: str):
+def add_topic(title: str, content: str, username: int):
     """
     Add a topic to the database.
 
     Args:
     - `title` - The title of the topic.
     - `content` - The content of the topic.
+    - `username` - The id of the user who created the topic.
     """
     db = get_db()
-    id_user = 1 # TODO: Get the user id from the session.
     db.execute(
-        'INSERT INTO topics (title, content, id_user) VALUES (?, ?, ?)',
-        (title, content, id_user)
+        'INSERT INTO topics (title, content, username) VALUES (?, ?, ?)',
+        (title, content, username)
     )
     db.commit()
 
@@ -128,7 +127,7 @@ def check_user(username: str, password: str):
     """
     db = get_db()
     user = db.execute(
-        'SELECT id_user FROM users WHERE username = ? AND password = ?',
+        'SELECT * FROM users WHERE username = ? AND password = ?',
         (username, password)
     ).fetchone()
     if user is None:
@@ -168,7 +167,7 @@ def check_username(username: str):
     
     db = get_db()
     user = db.execute(
-        'SELECT id_user FROM users WHERE username = ?',
+        'SELECT * FROM users WHERE username = ?',
         (username,)
     ).fetchone()
     if user is None:
