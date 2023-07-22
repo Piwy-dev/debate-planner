@@ -78,12 +78,12 @@ def add_topic(title: str, content: str, username: int):
     db.commit()
 
 
-def update_topic_votes(post_id: str, up: bool, remove: bool):
+def update_topic_votes(toppic_id: str, up: bool, remove: bool):
     """
     Change the votes of a post.
 
     Args:
-    - `post_id` - The id of the post to add a like to.
+    - `topic_id` - The id of the post to add a like to.
     - `up`- `True` if the user is upvoting, otherwise `False`.
     - `remove`- If `True`, remove a vote, otherwise add a vote.
     """
@@ -91,25 +91,26 @@ def update_topic_votes(post_id: str, up: bool, remove: bool):
     if remove:
         if up:
             db.execute(
-                'UPDATE posts SET votes = votes - 1 WHERE id = ?',
-                (post_id,)
+                'UPDATE topics SET votes = votes - 1 WHERE id_topic = ?',
+                (toppic_id,)
             )
         else:
             db.execute(
-                'UPDATE posts SET votes = votes + 1 WHERE id = ?',
-                (post_id,)
+                'UPDATE topics SET votes = votes + 1 WHERE id_topic = ?',
+                (toppic_id,)
             )
     else:
         if up:
             db.execute(
-                'UPDATE posts SET votes = votes + 1 WHERE id = ?',
-                (post_id,)
+                'UPDATE topics SET votes = votes + 1 WHERE id_topic = ?',
+                (toppic_id,)
             )
         else:
             db.execute(
-                'UPDATE posts SET votes = votes - 1 WHERE id = ?',
-                (post_id,)
+                'UPDATE topics SET votes = votes - 1 WHERE id_topic = ?',
+                (toppic_id,)
             )
+    db.commit()
 
 
 def check_user(username: str, password: str):
