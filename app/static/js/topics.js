@@ -5,11 +5,11 @@
  * @throws {Error} - If the response from the server is not ok
  */
 async function vote(event) {
-    // Prevent this endpoint from being called multiple times
-    event.target.removeEventListener('click', vote.bind(this));
+    event.preventDefault();
 
     const topicId = event.target.id
     const voteType = event.target.classList.contains('upvote') ? 'upvote' : 'downvote';
+    console.log(topicId, voteType);
     const response = await fetch(`/topics/${topicId}/vote/${voteType}`, {
         method: 'POST',
         form: {
@@ -22,9 +22,6 @@ async function vote(event) {
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
-
-    // Re-enable the event listener
-    event.target.addEventListener('click', vote.bind(this));
 }
 
 
@@ -37,11 +34,11 @@ export function manageVotes() {
     
     // Add event listeners to the upvote buttons
     upvotes.forEach(upvote => {
-        upvote.addEventListener('click', vote.bind(this));
+        upvote.addEventListener('click', vote.bind(this), false);
     });
 
     // Add event listeners to the downvote buttons
     downvotes.forEach(downvote => {
-        downvote.addEventListener('click', vote.bind(this));
+        downvote.addEventListener('click', vote.bind(this), false);
     });
 }

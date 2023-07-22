@@ -51,11 +51,11 @@
         <div class="topic" id="{{ topic.id_topic }}">
             <div class="topic-container">
                 <div class="votes">
-                    <div class="upvote" id="{{ topic.id_topic }}">
+                    <div>
                         <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="upvote" id="{{ topic.id_topic }}" alt="upvote">
                     </div>
                     <p class="vote-count-{{ topic.id_topic }}">{{ topic.votes }}</p>
-                    <div class="downvote" id="{{ topic.id_topic }}">
+                    <div>
                         <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="downvote" id="{{ topic.id_topic }}" alt="downvote">
                     </div>
                 </div>

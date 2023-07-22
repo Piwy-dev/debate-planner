@@ -51,6 +51,7 @@ def create_app(test_config=None):
        
     @app.route("/topics/<int:topic_id>/vote/<vote_type>", methods=['POST'])
     def vote_topic(topic_id, vote_type):
+        print(topic_id, vote_type)
         if 'logged_in' not in session:
             return redirect('/{}/connection'.format(lang))
         

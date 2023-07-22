@@ -123,17 +123,17 @@
   font-size: 14px;
 }
 
-.upvote img, .downvote img {
+.upvote, .downvote {
   width: 30px;
   height: 30px;
 }
 
-.upvote img:hover, .downvote img:hover {
+.upvote:hover, .downvote:hover {
   cursor: pointer;
   filter: invert(80%);
 }
 
-.downvote img {
+.downvote {
   transform: rotate(180deg);
 }
 
