@@ -5,11 +5,10 @@
  * @throws {Error} - If the response from the server is not ok
  */
 async function vote(event) {
-    event.preventDefault();
-
+    const previousCount = document.querySelector(`.vote-count-${event.target.id}`).innerHTML;
     const topicId = event.target.id
     const voteType = event.target.classList.contains('upvote') ? 'upvote' : 'downvote';
-    console.log(topicId, voteType);
+
     const response = await fetch(`/topics/${topicId}/vote/${voteType}`, {
         method: 'POST',
         form: {
@@ -18,9 +17,16 @@ async function vote(event) {
         }
     });
 
-    // If the response from the server is not ok, throw an error
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    if (response.ok) {
+        if (voteType === 'upvote') {
+            const newCount = parseInt(previousCount) + 1;
+            document.querySelector(`.vote-count-${event.target.id}`).innerHTML = newCount;
+        } else {
+            const newCount = parseInt(previousCount) - 1;
+            document.querySelector(`.vote-count-${event.target.id}`).innerHTML = newCount;
+        }
+    } else {
+        throw new Error('Something went wrong');
     }
 }
 

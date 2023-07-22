@@ -51,14 +51,13 @@ def create_app(test_config=None):
        
     @app.route("/topics/<int:topic_id>/vote/<vote_type>", methods=['POST'])
     def vote_topic(topic_id, vote_type):
-        print(topic_id, vote_type)
         if 'logged_in' not in session:
             return redirect('/{}/connection'.format(lang))
         
         if vote_type == 'upvote':
             db.update_topic_votes(topic_id, True, False)
         elif vote_type == 'downvote':
-            db.update_topic_votes(topic_id, False, True)
+            db.update_topic_votes(topic_id, False, False)
     
         topics = db.get_topics()
         return render_template('/{}/home.html'.format(lang), topics=topics, logged_in=True, username=session['username'])
@@ -84,7 +83,8 @@ def create_app(test_config=None):
             password = request.form['password']
             if not db.check_username(username):
                 db.add_user(username, password)
-                # TODO: add session and connect user
+                session['logged_in'] = True
+                session['username'] = username
                 return redirect('/{}/home'.format(lang))
             else:
                 return render_template('/{}/inscription.html'.format(lang), error="Nom d'utilisateur déjà utilisé")

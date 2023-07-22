@@ -78,7 +78,7 @@ def add_topic(title: str, content: str, username: int):
     db.commit()
 
 
-def update_topic_votes(toppic_id: str, up: bool, remove: bool):
+def update_topic_votes(topic_id: str, up: bool, remove: bool):
     """
     Change the votes of a post.
 
@@ -88,28 +88,16 @@ def update_topic_votes(toppic_id: str, up: bool, remove: bool):
     - `remove`- If `True`, remove a vote, otherwise add a vote.
     """
     db = get_db()
-    if remove:
-        if up:
-            db.execute(
-                'UPDATE topics SET votes = votes - 1 WHERE id_topic = ?',
-                (toppic_id,)
-            )
+    if up:
+        if remove:
+            db.execute('UPDATE topics SET votes = votes - 1 WHERE id_topic = ?',(topic_id,))
         else:
-            db.execute(
-                'UPDATE topics SET votes = votes + 1 WHERE id_topic = ?',
-                (toppic_id,)
-            )
+            db.execute('UPDATE topics SET votes = votes + 1 WHERE id_topic = ?',(topic_id,))
     else:
-        if up:
-            db.execute(
-                'UPDATE topics SET votes = votes + 1 WHERE id_topic = ?',
-                (toppic_id,)
-            )
+        if remove:
+            db.execute('UPDATE topics SET votes = votes + 1 WHERE id_topic = ?', (topic_id,))
         else:
-            db.execute(
-                'UPDATE topics SET votes = votes - 1 WHERE id_topic = ?',
-                (toppic_id,)
-            )
+            db.execute('UPDATE topics SET votes = votes - 1 WHERE id_topic = ?', (topic_id,))
     db.commit()
 
 
