@@ -78,27 +78,82 @@ def add_topic(title: str, content: str, username: int):
     db.commit()
 
 
-def update_topic_votes(topic_id: str, up: bool, remove: bool):
+def update_topic_votes(topic_id: str, add_votes: int):
     """
     Change the votes of a post.
 
     Args:
     - `topic_id` - The id of the post to add a like to.
-    - `up`- `True` if the user is upvoting, otherwise `False`.
-    - `remove`- If `True`, remove a vote, otherwise add a vote.
+    - `add_votes` - The new number of votes to add to the post.
     """
     db = get_db()
-    if up:
-        if remove:
-            db.execute('UPDATE topics SET votes = votes - 1 WHERE id_topic = ?',(topic_id,))
-        else:
-            db.execute('UPDATE topics SET votes = votes + 1 WHERE id_topic = ?',(topic_id,))
-    else:
-        if remove:
-            db.execute('UPDATE topics SET votes = votes + 1 WHERE id_topic = ?', (topic_id,))
-        else:
-            db.execute('UPDATE topics SET votes = votes - 1 WHERE id_topic = ?', (topic_id,))
+    db.execute(
+        'UPDATE topics SET votes = ? WHERE topic_id = ?',
+        (add_votes, topic_id)
+    )
     db.commit()
+
+
+def get_previous_vote_type(username: str, topic_id: int):
+    """
+    Get the type of vote that a user has already made on a post.
+
+    Args:
+    - `username` - The username of the user.
+    - `topic_id` - The id of the post.
+
+    Returns:
+    - `1` if the user has upvoted the post, `-1` if the user has downvoted the post, otherwise `0`.
+    """
+    db = get_db()
+    vote = db.execute(
+        'SELECT * FROM votes WHERE username = ? AND topic_id = ?',
+        (username, topic_id)
+    ).fetchone()
+    if vote is None:
+        return 0
+    else:
+        vote = dict(vote)
+        return int(vote['vote_type'])
+
+
+def add_vote(username: str, topic_id: int, vote_type: int):
+    """
+    Add a vote to a post.
+
+    Args:
+    - `username` - The username of the user who voted.
+    - `topic_id` - The id of the post to add a vote to.
+    - `vote_type` - `1` if the user upvoted the post, `-1` if the user downvoted the post, otherwise `0`.
+    """
+    db = get_db()
+    db.execute(
+        'INSERT INTO votes (username, topic_id, vote_type) VALUES (?, ?, ?)',
+        (username, topic_id, vote_type)
+    )
+    db.commit()
+
+
+def check_user_vote(username: str, topic_id: int):
+    """
+    Check if a user has already voted for a post.
+
+    Args:
+    - `username` - The username of the user.
+    - `topic_id` - The id of the post.
+
+    Returns:
+    - `True` if the user has already voted for the post, otherwise `False`.
+    """
+    db = get_db()
+    vote = db.execute(
+        'SELECT * FROM votes WHERE username = ? AND topic_id = ?',
+        (username, topic_id)
+    ).fetchone()
+    if vote is None:
+        return False
+    else:
+        return True
 
 
 def check_user(username: str, password: str):

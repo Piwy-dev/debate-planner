@@ -54,11 +54,35 @@ def create_app(test_config=None):
         if 'logged_in' not in session:
             return redirect('/{}/connection'.format(lang))
         
+        previous_vote_type = db.get_previous_vote_type(session['username'], topic_id)
+
+        print(previous_vote_type, vote_type)
+        
         if vote_type == 'upvote':
-            db.update_topic_votes(topic_id, True, False)
+            if previous_vote_type == 1:
+                db.update_topic_votes(topic_id, -1)
+                db.add_vote(session['username'], topic_id, 0)
+                #TODO: change the vote count and make the up button black
+            elif previous_vote_type == 0:
+                if previous_vote_type == -1:
+                    db.update_topic_votes(topic_id, 2)
+                else:
+                    db.update_topic_votes(topic_id, 1)
+                db.add_vote(session['username'], topic_id, 1)
+                #TODO: change the vote count and make the up button blue
         elif vote_type == 'downvote':
-            db.update_topic_votes(topic_id, False, False)
-    
+            if previous_vote_type == -1:
+                db.update_topic_votes(topic_id, 1)
+                db.add_vote(session['username'], topic_id, 0)
+                #TODO: change the vote count and make the down button black
+            elif previous_vote_type == 0:
+                if previous_vote_type == 1:
+                    db.update_topic_votes(topic_id, -2)
+                else:
+                    db.update_topic_votes(topic_id, -1)
+                db.add_vote(session['username'], topic_id, -1)
+                #TODO: change the vote count and make the down button blue
+
         topics = db.get_topics()
         return render_template('/{}/home.html'.format(lang), topics=topics, logged_in=True, username=session['username'])
     
@@ -74,7 +98,8 @@ def create_app(test_config=None):
                 return redirect('/{}/home'.format(lang))
             else:
                 return render_template('/{}/connection.html'.format(lang), error="Mauvais identifiants")
-        return render_template('/{}/connection.html'.format(lang))
+        elif request.method == 'GET':
+            return render_template('/{}/connection.html'.format(lang), error="")
         
     @app.route("/<lang>/inscription", methods=['GET', 'POST'])
     def inscription(lang):

@@ -48,15 +48,15 @@
         </a>
         <!-- Topics -->
         {% for topic in topics %}
-        <div class="topic" id="{{ topic.id_topic }}">
+        <div class="topic" id="{{ topic.topic_id }}">
             <div class="topic-container">
                 <div class="votes">
                     <div>
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="upvote" id="{{ topic.id_topic }}" alt="upvote">
+                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="upvote" id="{{ topic.topic_id }}" alt="upvote">
                     </div>
-                    <p class="vote-count-{{ topic.id_topic }}">{{ topic.votes }}</p>
+                    <p class="vote-count-{{ topic.topic_id }}">{{ topic.votes }}</p>
                     <div>
-                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="downvote" id="{{ topic.id_topic }}" alt="downvote">
+                        <img src="{{ url_for('static', filename='images/up_arrow_black.png')}}" class="downvote" id="{{ topic.topic_id }}" alt="downvote">
                     </div>
                 </div>
                 

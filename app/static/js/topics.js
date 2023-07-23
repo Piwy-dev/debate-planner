@@ -17,7 +17,16 @@ async function vote(event) {
         }
     });
 
-    if (response.ok) {
+    // Toggle the vote button
+    console.log(event.target.classList);
+    if (event.target.classList.contains('voted')) {
+        event.target.src = `/static/images/up_arrow_black.png`;
+    } else {
+        event.target.src = `/static/images/up_arrow_blue.png`;
+    }
+
+    // If the response is 200, update the vote count
+    if (response === 200) {
         if (voteType === 'upvote') {
             const newCount = parseInt(previousCount) + 1;
             document.querySelector(`.vote-count-${event.target.id}`).innerHTML = newCount;
@@ -25,8 +34,6 @@ async function vote(event) {
             const newCount = parseInt(previousCount) - 1;
             document.querySelector(`.vote-count-${event.target.id}`).innerHTML = newCount;
         }
-    } else {
-        throw new Error('Something went wrong');
     }
 }
 
