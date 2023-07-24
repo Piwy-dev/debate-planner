@@ -5,7 +5,6 @@
  * @throws {Error} - If the response from the server is not ok
  */
 async function vote(event) {
-    const previousCount = document.querySelector(`.vote-count-${event.target.id}`).innerHTML;
     const topicId = event.target.id
     const voteType = event.target.classList.contains('upvote') ? 'upvote' : 'downvote';
 
@@ -17,22 +16,15 @@ async function vote(event) {
         }
     });
 
-    // Toggle the vote button
-    console.log(event.target.classList);
-    if (event.target.classList.contains('voted')) {
-        event.target.src = `/static/images/up_arrow_black.png`;
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
     } else {
-        event.target.src = `/static/images/up_arrow_blue.png`;
-    }
+        const topic = await response.json();
+        const voteCount = document.querySelector(`.vote-count-${topicId}`);
 
-    // If the response is 200, update the vote count
-    if (response === 200) {
-        if (voteType === 'upvote') {
-            const newCount = parseInt(previousCount) + 1;
-            document.querySelector(`.vote-count-${event.target.id}`).innerHTML = newCount;
-        } else {
-            const newCount = parseInt(previousCount) - 1;
-            document.querySelector(`.vote-count-${event.target.id}`).innerHTML = newCount;
+        voteCount.innerHTML = topic.votes;
+
+        if (topic.vote_type === 'upvote') {
         }
     }
 }

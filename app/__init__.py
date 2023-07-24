@@ -83,9 +83,12 @@ def create_app(test_config=None):
                 db.add_vote(session['username'], topic_id, -1)
                 #TODO: change the vote count and make the down button blue
 
-        topics = db.get_topics()
-        return render_template('/{}/home.html'.format(lang), topics=topics, logged_in=True, username=session['username'])
-    
+        # Returns the number of votes and the type of vote the user has made
+        return jsonify({
+            'votes': db.get_topic_votes(topic_id),
+            'vote_type': vote_type,
+            'previous_vote_type': previous_vote_type
+        })
         
     @app.route("/<lang>/connection", methods=['GET', 'POST'])
     def connection(lang):

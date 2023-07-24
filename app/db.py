@@ -115,6 +115,25 @@ def get_previous_vote_type(username: str, topic_id: int):
     else:
         vote = dict(vote)
         return int(vote['vote_type'])
+    
+
+def get_topic_votes(topic_id: int):
+    """
+    Get the number of votes of a post.
+
+    Args:
+    - `topic_id` - The id of the post.
+
+    Returns:
+    - The number of votes of the post.
+    """
+    db = get_db()
+    topic = db.execute(
+        'SELECT * FROM topics WHERE topic_id = ?',
+        (topic_id,)
+    ).fetchone()
+    topic = dict(topic)
+    return int(topic['votes'])
 
 
 def add_vote(username: str, topic_id: int, vote_type: int):
@@ -132,28 +151,6 @@ def add_vote(username: str, topic_id: int, vote_type: int):
         (username, topic_id, vote_type)
     )
     db.commit()
-
-
-def check_user_vote(username: str, topic_id: int):
-    """
-    Check if a user has already voted for a post.
-
-    Args:
-    - `username` - The username of the user.
-    - `topic_id` - The id of the post.
-
-    Returns:
-    - `True` if the user has already voted for the post, otherwise `False`.
-    """
-    db = get_db()
-    vote = db.execute(
-        'SELECT * FROM votes WHERE username = ? AND topic_id = ?',
-        (username, topic_id)
-    ).fetchone()
-    if vote is None:
-        return False
-    else:
-        return True
 
 
 def check_user(username: str, password: str):
